@@ -59,24 +59,22 @@
     else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
         [self pttCommand:@"n"];
     }
-    else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
+    else if ([respone rangeOfString:@"請按任意鍵繼續"].location != NSNotFound) {
         [self pttCommand:@""];
         [self pttCommand:@"u"];
         [self pttCommand:@"i"];
-        
     }
-    else if ([respone rangeOfString:@"請按任意鍵繼續"].location != NSNotFound) {
+    else if ([respone rangeOfString:@"您要刪除以上錯誤嘗試的記錄嗎"].location != NSNotFound) {
         [self pttCommand:@"y"];
-    }
-    else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
-        
     }
     else if ([respone rangeOfString:@"代號暱稱"].location != NSNotFound) {
         
     }
     NSLog(respone);
-    
+    NSLog(@"\n\n\n");
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
