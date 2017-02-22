@@ -28,8 +28,8 @@
     socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     big5 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingBig5_HKSCS_1999);
     
-    
-    
+    account = @"";
+    password = @"";
     [socket connectToHost:@"ptt.cc" onPort:23 error:nil];
     [self pttCommand:account];
 }
@@ -53,9 +53,27 @@
 -(void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
     [sock readDataWithTimeout:-1 tag:0];
     NSString *respone = [[NSString alloc] initWithData:data encoding:big5];
-//    if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"]) {
-//        
-//    }
+    if ([respone rangeOfString:@"請輸入您的密碼"].location != NSNotFound) {
+        [self pttCommand:password];
+    }
+    else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
+        [self pttCommand:@"n"];
+    }
+    else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
+        [self pttCommand:@""];
+        [self pttCommand:@"u"];
+        [self pttCommand:@"i"];
+        
+    }
+    else if ([respone rangeOfString:@"請按任意鍵繼續"].location != NSNotFound) {
+        [self pttCommand:@"y"];
+    }
+    else if ([respone rangeOfString:@"您想刪除其他重複登入的連線嗎"].location != NSNotFound) {
+        
+    }
+    else if ([respone rangeOfString:@"代號暱稱"].location != NSNotFound) {
+        
+    }
     NSLog(respone);
     
 }
